@@ -63,13 +63,14 @@
 	<!-- end::profile[] -->
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<!-- tag::wsdl[] -->
-			<plugin>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+				<!-- tag::wsdl[] -->
+				<plugin>
 					<groupId>org.jvnet.jaxb2.maven2</groupId>
 					<artifactId>maven-jaxb2-plugin</artifactId>
 					<version>0.14.0</version>
@@ -89,8 +90,28 @@
 							</schema>
 						</schemas>
 					</configuration>
-			</plugin>
-			<!-- end::wsdl[] -->
-		</plugins>
+				</plugin>
+				<!-- end::wsdl[] -->
+				<plugin>
+				  <groupId>org.codehaus.mojo</groupId>
+				  <artifactId>build-helper-maven-plugin</artifactId>
+				  <version>3.2.0</version>
+				  <executions>
+					<execution>
+					  <id>add-source</id>
+					  <phase>generate-sources</phase>
+					  <goals>
+						<goal>add-source</goal>
+					  </goals>
+					  <configuration>
+						<sources>
+						  <source>target/generated-sources/jaxb</source>
+						</sources>
+					  </configuration>
+					</execution>
+				  </executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
